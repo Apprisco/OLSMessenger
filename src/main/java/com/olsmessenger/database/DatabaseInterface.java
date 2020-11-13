@@ -16,18 +16,24 @@ import java.util.Set;
  **/
 public class DatabaseInterface {
 
-    private String redisURL = "redis://127.0.0.1:3306";
+    private String redisURL = "redis://176.9.140.143:6379";
+    private String password = "scooter";
     private RedissonClient redisson;
     private RSet<User> users;
     private RSet<Class> classes;
 
-    public DatabaseInterface(String redisURL) {
+    public DatabaseInterface(String redisURL, String password) {
         this.redisURL = redisURL;
+        this.password = password;
+    }
+
+    public DatabaseInterface() {
+
     }
 
     public void connect() {
         Config config = new Config();
-        config.useSingleServer().setAddress(redisURL);
+        config.useSingleServer().setAddress(redisURL).setPassword(password);
         this.redisson = Redisson.create(config);
 
         initObjectHolders();

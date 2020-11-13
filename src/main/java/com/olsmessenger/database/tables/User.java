@@ -2,6 +2,7 @@ package com.olsmessenger.database.tables;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  * @since : 11/13/20, Fri
  **/
 @Data
-public class User {
+public class User implements Serializable {
 
     private int id; // do not fill this!!!!! autofill!!
     private String username;
