@@ -3,6 +3,7 @@ package com.olsmessenger.database.tables;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,6 +18,6 @@ public class User implements Serializable {
     private String firstName;
     private String lastName;
     private String password;
-    private List<String> classes;
+    private List<String> classes = new ArrayList<>();
 
 }

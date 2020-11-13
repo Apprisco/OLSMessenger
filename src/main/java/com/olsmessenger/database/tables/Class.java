@@ -3,6 +3,7 @@ package com.olsmessenger.database.tables;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,8 +14,8 @@ import java.util.List;
 public class Class implements Serializable {
 
     private String className;
-    private List<Integer> userIds; // user in the class
-    private List<ChatLine> chatHistory;
+    private List<Integer> userIds = new ArrayList<>(); // user in the class
+    private List<ChatLine> chatHistory = new ArrayList<>();
 
     @Data
     public static class ChatLine {
