@@ -7,7 +7,7 @@
     <title>OLS Integration</title>
     <style>
         body {
-            padding-left: 20px;
+            padding: 20px;
         }
 
         #logo {
@@ -21,15 +21,28 @@
 <body>
     <img src="logo.png" alt="exeter logo" id="logo">
 
-    <h1 style="text-align: center">OLS Integration</h1>
+    <h1 style="text-align: center">Exeter Messenger</h1>
+    <h5 style="text-align: center; color: grey">Sign up to chat, connect and share with the PEA community.</h1>
     
     <form action="handler.php" method="post">
         <p>
         <div class="form-group">
-            <label for="schedule">Please paste your exported OLS schedule here</label>
-            <input type="text" class="form-control" id="user" name="schedule">
+            <label for="name">What's your name?</label>
+            <input type="text" class="form-control" id="name" name="name">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="form-group">
+            <label for="name">What's your email?</label>
+            <input type="text" class="form-control" id="email" name="email">
+        </div>
+        <div class="form-group">
+            <label for="name">Password.</label>
+            <input type="password" class="form-control" id="password" name="password">
+        </div>
+        <div class="form-group">
+            <label for="schedule">Please paste your exported OLS schedule here.</label>
+            <input type="text" class="form-control" id="schedule" name="schedule">
+        </div>
+        <button type="submit" class="btn btn-primary">Sign Up</button>
         </p>
     </form>
 
