@@ -1,3 +1,4 @@
+
 body
 {
   background-image: url('https://cdn.discordapp.com/attachments/582274693097193472/778987567185395742/Exeter-Academy-Bldg.png')
@@ -99,3 +100,45 @@ hr
 {
   margin: 1px;
 }
+    
+.messages{
+    overflow-y: auto;
+}
+
+.container{
+    align-content: center;
+}
+
+.user_pfp{
+    height: 50px;
+    width: 50px;
+    border: 1px solid #ffffff;
+}
+
+.message_received{
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px;
+    border-radius: 25px;
+    background-color: #fcfcfc;
+    padding: 10px;
+    position: relative;
+}
+.message_sent{
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 10px;
+    border-radius: 25px;
+    background-color: #fcfcfc;
+    padding: 10px;
+    position: relative;
+}
+.time_date{
+    position: absolute;
+    left: 0;
+    bottom: -15px;
+    color: #fcfcfc;
+    font-weight: 1.5;
+    font-size: 10px;
+}
+
