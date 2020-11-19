@@ -1,0 +1,68 @@
+body
+{
+  background-image: url('https://cdn.discordapp.com/attachments/582274693097193472/778987567185395742/Exeter-Academy-Bldg.png')
+}
+
+.profile-picture
+{
+  width: 40px;
+  height: 40px;
+  border-radius: 25px;
+}
+
+.profile-bar
+{
+  background: #DCDCDC;
+  border-radius: 5px;
+  padding: 7px 15px;
+  
+  i
+  {
+    margin-top: 9px;
+    margin-left: 7px;
+    font-size: 25px;
+    color: #808080;
+    transition: .3s;
+    
+    &:hover {
+      color: #bababa;
+      cursor: pointer;
+    }
+  }
+}
+
+.search-bar
+{
+  padding: 15px 0px;
+  
+  i
+  {
+    color: #DCDCDC;
+    vertical-align: middle;
+  }
+}
+
+input
+{
+  border: none;
+  border-radius: 5px;
+  width: 300px; 
+  
+  &::placeholder
+  {
+    color: #DCDCDC;
+  }
+  
+  &::focus
+  {
+    outline: none;
+  }
+}
+
+.container 
+{
+  background: #862727;
+;
+  border-radius: 5px;
+  margin: 80px auto;
+}
