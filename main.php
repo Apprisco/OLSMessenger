@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-    <title>proj</title>
+    <title>PEA Messenger</title>
     <meta charset="UTF-8" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
@@ -49,11 +49,11 @@ if (!$_SESSION['login']){
     $class4s=$class4;
     $class5s=$class5;
     $current=$class1;
-    if(strlen($class1)>=33)$class1s=substr($class1,0,30);$class1s=$class1s."...";
-    if(strlen($class2)>=33)$class2s=substr($class2,0,30);$class2s=$class2s."...";
-    if(strlen($class3)>=33)$class3s=substr($class3,0,30);$class3s=$class3s."...";
-    if(strlen($class4)>=33)$class4s=substr($class4,0,30);$class4s=$class4s."...";
-    if(strlen($class5)>=33)$class5s=substr($class5,0,30);$class5s=$class5s."...";
+    if(strlen($class1)>=30)$class1s=substr($class1,0,27);$class1s=$class1s."...";
+    if(strlen($class2)>=30)$class2s=substr($class2,0,27);$class2s=$class2s."...";
+    if(strlen($class3)>=30)$class3s=substr($class3,0,27);$class3s=$class3s."...";
+    if(strlen($class4)>=30)$class4s=substr($class4,0,27);$class4s=$class4s."...";
+    if(strlen($class5)>=30)$class5s=substr($class5,0,27);$class5s=$class5s."...";
 ?>
 <script>
 $(document).on('click', "button.friend-drawer", function() {
@@ -149,7 +149,7 @@ $(document).on('click', "button.friend-drawer", function() {
                 </div>
             </div>
             <div class="col-md-7 chat-column">
-                <div class="profile-bar" style="margin-top:20px;">
+                <div class="profile-bar" style="margin-top:20px;text-align:center;">
                     <b style="color:#808080">
                         <?php echo "<p id='dad'>$current;</p>"?>
                     </b> 
