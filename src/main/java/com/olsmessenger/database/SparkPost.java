@@ -8,6 +8,7 @@ import java.util.NoSuchElementException;
 
 import com.olsmessenger.database.tables.User;
 import com.olsmessenger.database.tables.Class;
+import com.olsmessenger.database.tables.Class.ChatLine;
 
 public class SparkPost {
 	private final static String key="scooterman";
@@ -17,7 +18,8 @@ public class SparkPost {
 		initDb();
 		get("/signup",(req,res)->"hi!");
 		get("/login",(req,res)->"hi!");
-		get("/chat",(req,res)->"hi!");
+		get("/chatupdate",(req,res)->"hi!");
+		get("/chatpull",(req,res)->"hi!");
 		get("/classes",(req,res)->"hi!");
 		post("/login", (request, response) -> {
 			if(!validate(request.queryParams("key")))return "Failed, wrong auth key.";
@@ -45,9 +47,40 @@ public class SparkPost {
 			if(createUser(firstname,lastname,username,classes,password))return "successful!";
 			return "fail!";
 		});
-		post("/chat", (request, response) -> {
+		post("/chatupdate", (request, response) -> {
 			if(!validate(request.queryParams("key")))return "Failed, wrong auth key.";
+			String email=request.queryParams("email");
+			String classs=request.queryParams("class");
+			String content=request.queryParams("chat");
+			String username=email.substring(0,email.indexOf("@"));
+			Class cla=databaseInterface.getClassByName(classs).get();
+			ChatLine ch = new ChatLine();
+			ch.setLine(content);
+			ch.setSender(databaseInterface.getUserByUsername(username).get().getId());
+			ch.setTimestamp(new java.util.Date().getTime());
+			List<ChatLine> dddd=cla.getChatHistory();
+			dddd.add(ch);
+			cla.setChatHistory(dddd);
+			databaseInterface.saveClass(cla);
 		    return "successful!";
+		});
+		post("/chatpull", (request, response) -> {
+			if(!validate(request.queryParams("key")))return "Failed, wrong auth key.";
+			String email=request.queryParams("email");
+			String classs=request.queryParams("class");
+			String username=email.substring(0,email.indexOf("@"));
+			Class cla=databaseInterface.getClassByName(classs).get();
+			List<ChatLine> dddd=cla.getChatHistory();
+			String retun="";
+			for(int i=(0>dddd.size()-100?0:dddd.size()-100);i<dddd.size();i++)
+			{
+				ChatLine j=dddd.get(i);
+				String content=j.getLine();
+				long time=j.getTimestamp();
+				int id=j.getSender();
+				retun= retun+((Integer)id).toString()+")"+((Long)time).toString()+")"+content+")";
+			}
+		    return retun;
 		});
 		post("/classes", (request, response) -> {
 			if(!validate(request.queryParams("key")))return "Failed, wrong auth key.";

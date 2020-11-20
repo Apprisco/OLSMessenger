@@ -54,6 +54,7 @@ if (!$_SESSION['login']){
     if(strlen($class3)>=30)$class3s=substr($class3,0,27);$class3s=$class3s."...";
     if(strlen($class4)>=30)$class4s=substr($class4,0,27);$class4s=$class4s."...";
     if(strlen($class5)>=30)$class5s=substr($class5,0,27);$class5s=$class5s."...";
+
 ?>
 <script>
 $(document).on('click', "button.friend-drawer", function() {
@@ -156,6 +157,9 @@ $(document).on('click', "button.friend-drawer", function() {
                 </div>
                 <div class="container text-chat" id="11">
                     <div id="0" class="messages">
+                        <?php
+                        
+                        ?>
                         <div class="d-flex justify-content-start mb-4">
                             <div class="profile_picture">
                                 <img src="https://josephchen.tech/wp-content/uploads/2020/08/test1.jpg"
