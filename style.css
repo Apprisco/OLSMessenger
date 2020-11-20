@@ -1,4 +1,3 @@
-
 body
 {
   background-image: url('https://cdn.discordapp.com/attachments/582274693097193472/778987567185395742/Exeter-Academy-Bldg.png')
@@ -74,7 +73,7 @@ input
   vertical-align: baseline;
   padding: 20px;
   background: #DCDCDC;
-  transition: .3 ease;
+  transition: .5 ease;
   border-radius: 5px;
   margin-top: 15px;
   transition: .5s;
