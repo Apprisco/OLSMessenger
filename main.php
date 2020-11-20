@@ -27,6 +27,22 @@ if (!$_SESSION['login']){
     logout();
   }
 ?>
+<?php
+    include 'variables.php';
+    $email = $_SESSION['email'];
+    $email=trim($email);
+    $data = array('key'=>$key,'email'=>$_POST['email']);
+    $options = array(
+        'http' => array(
+            'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+            'method'  => 'POST',
+            'content' => http_build_query($data)
+        )
+    );
+    $context  = stream_context_create($options);
+    $result = file_get_contents($spark."/classes", false, $context);
+
+?>
 <body onload="myFunction(1)">
     <div class="container">
         <div class="row no-gutters">

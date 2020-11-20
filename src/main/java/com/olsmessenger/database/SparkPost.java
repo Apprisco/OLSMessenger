@@ -50,7 +50,9 @@ public class SparkPost {
 		});
 		post("/classes", (request, response) -> {
 			if(!validate(request.queryParams("key")))return "Failed, wrong auth key.";
-		    return "successful!";
+			String email=request.queryParams("email");
+			String username=email.substring(0,email.indexOf("@"));
+		    return getClassesByUser(username);
 		});
 	}
 	private static void initDb()
@@ -73,6 +75,7 @@ public class SparkPost {
         user.setPassword(password);
         user.setUsername(username);
         user.setClasses(classes);
+        
         databaseInterface.addUser(user); // this is how to add a user
         user = databaseInterface.getUserById(user.getId()).get();
         databaseInterface.saveUser(user);
@@ -89,5 +92,25 @@ public class SparkPost {
 		catch(NoSuchElementException e){
 			return "fail!";
 		}
+	}
+	private static String[] getClassesByUser(String username)
+	{
+		String[] fail = new String[1];
+		fail[0]="fail!";
+		try {
+			User user=databaseInterface.getUserByUsername(username).get();
+			if(user==null)return fail;
+			List<String> clas=user.getClasses();
+			String[] classes=new String[clas.size()];
+			int i=0;
+			for(String l:clas)
+			{
+				classes[i++]=l;
+			}
+			return classes;
+		}
+			catch(NoSuchElementException e){
+				return fail;
+			}
 	}
 }
