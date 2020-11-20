@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <title>proj</title>
     <meta charset="UTF-8" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <?php 
 include 'variables.php';
@@ -48,20 +49,22 @@ if (!$_SESSION['login']){
     $class4s=$class4;
     $class5s=$class5;
     $current=$class1;
-  if (isset($_GET['class'])) {
-      $i=$_GET['class'];
-      if($i==1)$current=$class1;
-      if($i==2)$current=$class2;
-      if($i==3)$current=$class3;
-      if($i==4)$current=$class4;
-      if($i==5)$current=$class5;
-  }
     if(strlen($class1)>=33)$class1s=substr($class1,0,30);$class1s=$class1s."...";
     if(strlen($class2)>=33)$class2s=substr($class2,0,30);$class2s=$class2s."...";
     if(strlen($class3)>=33)$class3s=substr($class3,0,30);$class3s=$class3s."...";
     if(strlen($class4)>=33)$class4s=substr($class4,0,30);$class4s=$class4s."...";
     if(strlen($class5)>=33)$class5s=substr($class5,0,30);$class5s=$class5s."...";
 ?>
+<script>
+$(document).on('click', "button.friend-drawer", function() {
+    var id = $(this).attr('id'); // $(this) refers to button that was clicked
+    var k=id.charAt(1);
+    if(k==1)$('p#dad').text("<?php echo $class1;?>");
+    if(k==2)$('p#dad').text("<?php echo $class2;?>");
+    if(k==3)$('p#dad').text("<?php echo $class3;?>");
+    if(k==4)$('p#dad').text("<?php echo $class4;?>");
+    if(k==5)$('p#dad').text("<?php echo $class5;?>");
+});</script>
 <body onload="myFunction(1)">
     <div class="container">
         <div class="row no-gutters">
@@ -81,8 +84,7 @@ if (!$_SESSION['login']){
                 </div>
                 <div class="search-bar">
                     <div class="chat-list">
-                        <a href="/main.php?class=1">
-                        <button class="friend-drawer">
+                        <button class="friend-drawer" id="b1">
                             <img src="https://media.discordapp.net/attachments/582274693097193472/779031603132235806/atom.png"
                                 alt="friend profile picture" class=profile-picture>
                             <p1>
@@ -93,9 +95,8 @@ if (!$_SESSION['login']){
                                     <span class="time text-muted small">
                                         11:06
                                     </span></sup>
-                        </button></a>
-                        <a href="/main.php?class=2">
-                        <button class="friend-drawer">
+                        </button>
+                        <button class="friend-drawer"id="b2">
                             <img src="https://cdn.discordapp.com/attachments/582274693097193472/779023684911628288/apollo.png"
                                 alt="friend profile picture" class=profile-picture>
                             <p1>
@@ -106,9 +107,8 @@ if (!$_SESSION['login']){
                                 <span class="time text-muted small">
                                     03:24
                                 </span></sup>
-                        </button></a>
-                        <a href="/main.php?class=3">
-                        <button class="friend-drawer">
+                        </button>
+                        <button class="friend-drawer"id="b3">
                             <img src="https://cdn.discordapp.com/attachments/582274693097193472/779031661714341978/shapes.png"
                                 alt="friend profile picture" class=profile-picture>
                             <p1>
@@ -119,9 +119,8 @@ if (!$_SESSION['login']){
                                 <span class="time text-muted small">
                                     13:56
                                 </span></sup>
-                        </button></a>
-                        <a href="/main.php?class=4">
-                        <button class="friend-drawer">
+                        </button>
+                        <button class="friend-drawer"id="b4">
                             <img src="https://cdn.discordapp.com/attachments/582274693097193472/779033530080297000/yoga.png"
                                 alt="friend profile picture" class=profile-picture>
                             <p1>
@@ -132,9 +131,8 @@ if (!$_SESSION['login']){
                                 <span class="time text-muted small">
                                     07:34
                                 </span></sup>
-                        </button></a>
-                        <a href="/main.php?class=5">
-                        <button class="friend-drawer">
+                        </button>
+                        <button class="friend-drawer"id="b5">
                             <img src="https://cdn.discordapp.com/attachments/582274693097193472/779033530080297000/yoga.png"
                                 alt="friend profile picture" class=profile-picture>
                             <p1>
@@ -145,7 +143,7 @@ if (!$_SESSION['login']){
                                 <span class="time text-muted small">
                                     07:34
                                 </span></sup>
-                        </button></a>
+                        </button>
                     </div>
                     <hr>
                 </div>
@@ -153,11 +151,11 @@ if (!$_SESSION['login']){
             <div class="col-md-7 chat-column">
                 <div class="profile-bar" style="margin-top:20px;">
                     <b style="color:#808080">
-                        <?php echo $current;?>
+                        <?php echo "<p id='dad'>$current;</p>"?>
                     </b> 
                 </div>
                 <div class="container text-chat" id="11">
-                    <div id="1" class="messages">
+                    <div id="0" class="messages">
                         <div class="d-flex justify-content-start mb-4">
                             <div class="profile_picture">
                                 <img src="https://josephchen.tech/wp-content/uploads/2020/08/test1.jpg"
