@@ -84,7 +84,7 @@ else if (strlen($_POST['schedule']) > 0 and strlen($_POST['name']) > 0 and strle
     echo "
     
     <div style='text-align:center; padding: 40px;'>
-        <a href='main.html'>Join the main texting room!</a>
+        <a href='main.php'>Join the main texting room!</a>
     </div>
     
     ";

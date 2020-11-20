@@ -31,7 +31,7 @@ if (!$_SESSION['login']){
     include 'variables.php';
     $email = $_SESSION['email'];
     $email=trim($email);
-    $data = array('key'=>$key,'email'=>$_POST['email']);
+    $data = array('key'=>$key,'email'=>$_SESSION['email']);
     $options = array(
         'http' => array(
             'header'  => "Content-type: application/x-www-form-urlencoded\r\n",

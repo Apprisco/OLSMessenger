@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import com.olsmessenger.database.tables.User;
+import com.olsmessenger.database.tables.Class;
 
 public class SparkPost {
 	private final static String key="scooterman";
@@ -75,11 +76,11 @@ public class SparkPost {
         user.setPassword(password);
         user.setUsername(username);
         user.setClasses(classes);
-        
         databaseInterface.addUser(user); // this is how to add a user
         user = databaseInterface.getUserById(user.getId()).get();
         databaseInterface.saveUser(user);
         databaseInterface.getAllUsers().forEach(System.out::println);
+        addWithoutDuplicateClass(classes,user.getId());
         return true;
 	}
 	private static String verifyUser(String username,String password)
@@ -112,5 +113,27 @@ public class SparkPost {
 			catch(NoSuchElementException e){
 				return fail;
 			}
+	}
+	private static void addWithoutDuplicateClass(List<String> classes, int id)
+	{
+		for(String i:classes)
+		{
+			try {
+				Class cla=databaseInterface.getClassByName(i).get();
+				List<Integer> students=cla.getUserIds();
+				students.add(id);
+				cla.setUserIds(students);
+				databaseInterface.saveClass(cla);
+			}
+				catch(NoSuchElementException e){
+					Class cla=new Class();
+					cla.setClassName(i);
+					List<Integer> students=cla.getUserIds();
+					students.add(id);
+					cla.setUserIds(students);
+					databaseInterface.addClass(cla);
+				}
+		}
+		databaseInterface.getAllClasses().forEach(System.out::println);
 	}
 }
