@@ -118,6 +118,7 @@ else if (strlen($_POST['schedule']) > 0 and strlen($_POST['name']) > 0 and strle
     ini_set('session.save_path', '/home/yoursite/sessions');
     session_start();
     $_SESSION['email'] = $tmp1;
+    $_SESSION['name'] = $tmp2;
 }
 else
 {
