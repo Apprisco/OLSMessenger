@@ -58,13 +58,14 @@ if (!$_SESSION['login']){
 ?>
 <script>
 $( document ).ready(function() {
-    $.post("/chathistory.php",{class:'<?php echo $class1;?>'});
+    $.post("/chathistory.php",{class:'<?php echo $class1;?>'},function(data){alert(data);});
 })
 </script>
 <script>
+var k=1;
 $(document).on('click', "button.friend-drawer", function() {
     var id = $(this).attr('id'); // $(this) refers to button that was clicked
-    var k=id.charAt(1);
+    k=id.charAt(1);
     if(k==1)$('p#dad').text("<?php echo $class1;?>");
     if(k==2)$('p#dad').text("<?php echo $class2;?>");
     if(k==3)$('p#dad').text("<?php echo $class3;?>");
@@ -75,6 +76,15 @@ $(document).on('click', "button.friend-drawer", function() {
     if(k==3)$.post("/chathistory.php",{class:'<?php echo $class3;?>'},function(data){alert(data);});
     if(k==4)$.post("/chathistory.php",{class:'<?php echo $class4;?>'},function(data){alert(data);});
     if(k==5)$.post("/chathistory.php",{class:'<?php echo $class5;?>'},function(data){alert(data);});   
+});
+$(document).on('click', ".send-btn", function() {
+    var l=$('#send').val();
+    if(k==1)$.post("/sendchat.php",{class:'<?php echo $class1;?>',content:l},function(data){alert(data);});
+    if(k==2)$.post("/sendchat.php",{class:'<?php echo $class2;?>',content:l},function(data){alert(data);});
+    if(k==3)$.post("/sendchat.php",{class:'<?php echo $class3;?>',content:l},function(data){alert(data);});
+    if(k==4)$.post("/sendchat.php",{class:'<?php echo $class4;?>',content:l},function(data){alert(data);});
+    if(k==5)$.post("/sendchat.php",{class:'<?php echo $class5;?>',content:l},function(data){alert(data);});
+    $('#send').val('');
 });</script>
 <body onload="myFunction(1)">
     <div class="container">
@@ -216,7 +226,7 @@ $(document).on('click', "button.friend-drawer", function() {
                 </div>
                 <div class="chat-footer">
                     <div class="input-group">
-                        <textarea name="" class="form-control type_msg" placeholder="Type your message..."></textarea>
+                        <textarea name="send" id="send" class="form-control type_msg" placeholder="Type your message..."></textarea>
                     </div>
                     <div class="send-btn">Send</div>
                 </div>
