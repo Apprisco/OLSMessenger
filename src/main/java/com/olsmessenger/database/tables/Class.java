@@ -25,15 +25,5 @@ public class Class implements Serializable {
         private String line;
 
     }
-
-    public void setClassName(String className)
-    {
-    	this.className=className;
-    }
-
-    public String getClassName()
-    {
-    	return this.className;
-    }
     
 }
