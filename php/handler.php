@@ -115,10 +115,11 @@ else if (strlen($_POST['schedule']) > 0 and strlen($_POST['name']) > 0 and strle
 
     ini_set('session.cookie_lifetime', 60 * 60 * 24 * 7);
     ini_set('session.gc_maxlifetime', 60 * 60 * 24 * 7);
-    ini_set('session.save_path', '/home/yoursite/sessions');
+    //ini_set('session.save_path', '/sessions');
     session_start();
-    $_SESSION['email'] = $tmp1;
+    $_SESSION['email'] = $tmp1; 
     $_SESSION['name'] = $tmp2;
+    $_SESSION['login'] = true;
 }
 else
 {

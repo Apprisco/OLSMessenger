@@ -37,45 +37,68 @@
 
 <?php 
 
-// Connect to database server
-$link = mysqli_connect("localhost", "root", "") or die (mysqli_error($link));
+// STARTING SESSION
+session_start();
 
-// Select database
-mysqli_select_db($link, "olsmessenger") or die(mysqli_error($link));
-
-$strSQL = "SELECT * FROM users";
-
-// Execute the query (the recordset $rs contains the result)
-$rs = mysqli_query($link, $strSQL);
-
-$ols = array();
-
-// Loop the recordset $rs
-// Each row will be made into an array ($row) using mysql_fetch_array
-while($row = mysqli_fetch_array($rs)) {
-    // Write the value of the column FirstName (which is now in the array $row)
-
-    for ($format = 'A'; $format <= 'H'; $format++) 
-    {
-        if (!array_key_exists($row[$format], $ols)) {
-            $ols[$row[$format]] = array();
-        }
-    
-        array_push($ols[$row[$format]], $row['name']);
-    }
+if ($_SESSION['login'] == false)
+{
+    echo "<h2>Forbidden. Please sign in first.</h2>";
 }
+else
+{
+    // Connect to database server
+    $link = mysqli_connect("localhost", "root", "") or die (mysqli_error($link));
 
-foreach ($ols as $classid => $persons) { 
-    echo "<div id='group'>";
-    echo "<h4>$classid</h2>"; 
-    foreach ($persons as $person) {       
-        echo "$person <br>";
+    // Select database
+    mysqli_select_db($link, "olsmessenger") or die(mysqli_error($link));
+
+    $strSQL = "SELECT * FROM users";
+
+    // Execute the query (the recordset $rs contains the result)
+    $rs = mysqli_query($link, $strSQL);
+
+    $ols = array();
+
+    // Loop the recordset $rs
+    // Each row will be made into an array ($row) using mysql_fetch_array
+    while($row = mysqli_fetch_array($rs)) {
+        // Write the value of the column FirstName (which is now in the array $row)
+
+        for ($format = 'A'; $format <= 'H'; $format++) 
+        {
+            if (!array_key_exists($row[$format], $ols)) {
+                $ols[$row[$format]] = array();
+            }
+        
+            array_push($ols[$row[$format]], $row['name']);
+        }
     }
-    echo "</div>";
-} 
 
-// Close the database connection
-mysqli_close($link);
+    foreach ($ols as $classid => $persons) { 
+        $display = false;
+
+        $htmlcode = "";
+
+        $htmlcode = $htmlcode . "<div id='group'>";
+        $htmlcode = $htmlcode . "<h4>$classid</h2>"; 
+        foreach ($persons as $person) {       
+            $htmlcode = $htmlcode . "$person <br>";
+            if ($person == $_SESSION['name'])
+            {
+                $display = true;
+            }
+        }
+        $htmlcode = $htmlcode . "</div>";
+
+        if ($display)
+        {
+            echo $htmlcode;
+        }
+    } 
+
+    // Close the database connection
+    mysqli_close($link);
+}
 
 ?>
 
