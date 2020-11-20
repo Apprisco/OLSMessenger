@@ -57,6 +57,11 @@ if (!$_SESSION['login']){
 
 ?>
 <script>
+$( document ).ready(function() {
+    $.post("/chathistory.php",{class:'<?php echo $class1;?>'});
+})
+</script>
+<script>
 $(document).on('click', "button.friend-drawer", function() {
     var id = $(this).attr('id'); // $(this) refers to button that was clicked
     var k=id.charAt(1);
@@ -65,6 +70,11 @@ $(document).on('click', "button.friend-drawer", function() {
     if(k==3)$('p#dad').text("<?php echo $class3;?>");
     if(k==4)$('p#dad').text("<?php echo $class4;?>");
     if(k==5)$('p#dad').text("<?php echo $class5;?>");
+    if(k==1)$.post("/chathistory.php",{class:'<?php echo $class1;?>'},function(data){alert(data);});
+    if(k==2)$.post("/chathistory.php",{class:'<?php echo $class2;?>'},function(data){alert(data);});
+    if(k==3)$.post("/chathistory.php",{class:'<?php echo $class3;?>'},function(data){alert(data);});
+    if(k==4)$.post("/chathistory.php",{class:'<?php echo $class4;?>'},function(data){alert(data);});
+    if(k==5)$.post("/chathistory.php",{class:'<?php echo $class5;?>'},function(data){alert(data);});   
 });</script>
 <body onload="myFunction(1)">
     <div class="container">
@@ -91,11 +101,6 @@ $(document).on('click', "button.friend-drawer", function() {
                             <p1>
                                 <?php echo $class1s;?><br>
                                 </p1>
-                                <sup style="color:#bababa">
-                                    Andrew Woo: Check the Discord??
-                                    <span class="time text-muted small">
-                                        11:06
-                                    </span></sup>
                         </button>
                         <button class="friend-drawer"id="b2">
                             <img src="https://cdn.discordapp.com/attachments/582274693097193472/779023684911628288/apollo.png"
@@ -103,11 +108,6 @@ $(document).on('click', "button.friend-drawer", function() {
                             <p1>
                                 <?php echo $class2s;?>
                             </p1>
-                            <sup style="color:#bababa">
-                                Felix Zou: here's the link to the hw ... 🔗
-                                <span class="time text-muted small">
-                                    03:24
-                                </span></sup>
                         </button>
                         <button class="friend-drawer"id="b3">
                             <img src="https://cdn.discordapp.com/attachments/582274693097193472/779031661714341978/shapes.png"
@@ -115,11 +115,6 @@ $(document).on('click', "button.friend-drawer", function() {
                             <p1>
                                 <?php echo $class3s;?>
                             </p1>
-                            <sup style="color:#bababa">
-                                Kevin Cong: SOOOOOOO BAD
-                                <span class="time text-muted small">
-                                    13:56
-                                </span></sup>
                         </button>
                         <button class="friend-drawer"id="b4">
                             <img src="https://cdn.discordapp.com/attachments/582274693097193472/779033530080297000/yoga.png"
@@ -127,23 +122,13 @@ $(document).on('click', "button.friend-drawer", function() {
                             <p1>
                                 <?php echo $class4s;?>
                             </p1>
-                            <sup style="color:#bababa">
-                                You: Can you tell coach I sprained ...
-                                <span class="time text-muted small">
-                                    07:34
-                                </span></sup>
                         </button>
                         <button class="friend-drawer"id="b5">
                             <img src="https://cdn.discordapp.com/attachments/582274693097193472/779033530080297000/yoga.png"
                                 alt="friend profile picture" class=profile-picture>
                             <p1>
                                 <?php echo $class5s;?>
-                            </p1>>
-                            <sup style="color:#bababa">
-                                You: Can you tell coach I sprained ...
-                                <span class="time text-muted small">
-                                    07:34
-                                </span></sup>
+                            </p1>
                         </button>
                     </div>
                     <hr>
@@ -152,14 +137,11 @@ $(document).on('click', "button.friend-drawer", function() {
             <div class="col-md-7 chat-column">
                 <div class="profile-bar" style="margin-top:20px;text-align:center;">
                     <b style="color:#808080">
-                        <?php echo "<p id='dad'>$current;</p>"?>
+                        <?php echo "<p id='dad'>$current</p>"?>
                     </b> 
                 </div>
                 <div class="container text-chat" id="11">
                     <div id="0" class="messages">
-                        <?php
-                        
-                        ?>
                         <div class="d-flex justify-content-start mb-4">
                             <div class="profile_picture">
                                 <img src="https://josephchen.tech/wp-content/uploads/2020/08/test1.jpg"

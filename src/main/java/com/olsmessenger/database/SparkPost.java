@@ -50,7 +50,7 @@ public class SparkPost {
 		post("/chatupdate", (request, response) -> {
 			if(!validate(request.queryParams("key")))return "Failed, wrong auth key.";
 			String email=request.queryParams("email");
-			String classs=request.queryParams("class");
+			String classs=request.queryParams("class");classs=classs.substring(1);
 			String content=request.queryParams("chat");
 			String username=email.substring(0,email.indexOf("@"));
 			Class cla=databaseInterface.getClassByName(classs).get();
@@ -68,8 +68,8 @@ public class SparkPost {
 			if(!validate(request.queryParams("key")))return "Failed, wrong auth key.";
 			String email=request.queryParams("email");
 			String classs=request.queryParams("class");
-			String username=email.substring(0,email.indexOf("@"));
 			Class cla=databaseInterface.getClassByName(classs).get();
+			System.out.println(cla);
 			List<ChatLine> dddd=cla.getChatHistory();
 			String retun="";
 			for(int i=(0>dddd.size()-100?0:dddd.size()-100);i<dddd.size();i++)
@@ -78,9 +78,9 @@ public class SparkPost {
 				String content=j.getLine();
 				long time=j.getTimestamp();
 				int id=j.getSender();
-				retun= retun+((Integer)id).toString()+")"+((Long)time).toString()+")"+content+")";
+				retun= retun+((Integer)id).toString()+"|"+((Long)time).toString()+"|"+content+"|";
 			}
-		    return retun;
+		    return "";
 		});
 		post("/classes", (request, response) -> {
 			if(!validate(request.queryParams("key")))return "Failed, wrong auth key.";
