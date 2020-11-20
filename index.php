@@ -18,6 +18,14 @@
         }
     </style>
 </head>
+<?php 
+include 'variables.php';
+if (!session_id()) session_start();
+if ($_SESSION['login']){ 
+    header("Location:main.php");
+    die();
+}
+?>
 <body>
     <img src="logo.png" alt="exeter logo" id="logo">
 

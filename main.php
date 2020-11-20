@@ -8,15 +8,15 @@
     <title>proj</title>
     <meta charset="UTF-8" />
 </head>
-
-<body onload="myFunction(1)">
-<?php
-session_start();
-if ($_SESSION['login'] == false)
-{
-    echo "<h2>Forbidden. Please sign in first.</h2>";
+<?php 
+include 'variables.php';
+if (!session_id()) session_start();
+if (!$_SESSION['login']){ 
+    header("Location:index.php");
+    die();
 }
 ?>
+<body onload="myFunction(1)">
     <div class="container">
         <div class="row no-gutters">
             <div class="col-md-4">
@@ -25,9 +25,12 @@ if ($_SESSION['login'] == false)
                         src="https://cdn.discordapp.com/attachments/582274693097193472/778992941900627998/unknown.png"
                         alt="profile picture">
                     <b style="color:#808080">
-                        Jacob David
+                        <?php 
+                        echo $_SESSION['name'];
+                        ?>
                     </b>
                     <span class="profile-bar--right float-right">
+                    <button class="btn btn-primary">Log out</button>
                     </span>
                 </div>
                 <div class="search-bar">
@@ -380,7 +383,7 @@ if ($_SESSION['login'] == false)
                                     class="rounded-circle user_pfp">
                             </div>
                             <div class="message_received">
-                                PAIN 4.0..............
+                                PAIN 4.0..............  
                                 <span class="time_date">Joseph, 7:42 PM, Today</span>
                             </div>
                         </div>
@@ -394,6 +397,7 @@ if ($_SESSION['login'] == false)
                     <div class="send-btn">Send</div>
                 </div>
             </div>
+        
 </body>
 
 </html>

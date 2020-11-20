@@ -24,7 +24,6 @@ public class SparkPost {
 			String email=request.queryParams("email");
 			String password=request.queryParams("password");
 			String username=email.substring(0,email.indexOf("@"));
-			System.out.println(username+"\n"+password);
 			return verifyUser(username,password);
 		});
 		post("/signup", (request, response) -> {
