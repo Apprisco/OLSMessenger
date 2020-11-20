@@ -26,4 +26,14 @@ public class Class implements Serializable {
 
     }
 
+    public void setClassName(String className)
+    {
+    	this.className=className;
+    }
+
+    public String getClassName()
+    {
+    	return this.className;
+    }
+    
 }
