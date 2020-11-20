@@ -3,6 +3,8 @@ package com.olsmessenger.database;
 import com.olsmessenger.database.tables.Class;
 import com.olsmessenger.database.tables.User;
 import org.redisson.Redisson;
+import org.redisson.api.RBucket;
+import org.redisson.api.RList;
 import org.redisson.api.RSet;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
@@ -19,8 +21,9 @@ public class DatabaseInterface {
     private String redisURL = "redis://176.9.140.143:6379";
     private String password = "scooter";
     private RedissonClient redisson;
-    private RSet<User> users;
-    private RSet<Class> classes;
+    private RList<User> users;
+    private RList<Class> classes;
+    private RBucket<Integer> userIdIndex;
 
     public DatabaseInterface(String redisURL, String password) {
         this.redisURL = redisURL;
@@ -40,15 +43,16 @@ public class DatabaseInterface {
     }
 
     private void initObjectHolders() {
-        users = redisson.getSet("users");
-        classes = redisson.getSet("classes");
+        users = redisson.getList("users");
+        classes = redisson.getList("classes");
+        userIdIndex = redisson.getBucket("userIdIndex");
     }
 
     public boolean connected() {
         return redisson != null;
     }
 
-    public Set<User> getAllUsers() {
+    public RList<User> getAllUsers() {
         return users;
     }
 
@@ -61,20 +65,26 @@ public class DatabaseInterface {
     }
 
     public synchronized void addUser(User user) {
-        int index = users.size() + 1;
+        int index = getAndIncrease();
         user.setId(index);
         users.add(user);
     }
 
+    private int getAndIncrease() {
+        int index = userIdIndex.get();
+        userIdIndex.trySet(index+1);
+        return index;
+    }
+
     public void removeUser(int id) {
-        getUserById(id).ifPresent(users::remove);
+        users.removeIf(user2 -> id == user2.getId());
     }
 
     public void removeUser(User user) {
-        users.remove(user);
+        users.removeIf(user2 -> user.getId() == user2.getId());
     }
 
-    public Set<Class> getAllClasses() {
+    public RList<Class> getAllClasses() {
         return classes;
     }
 
@@ -104,7 +114,7 @@ public class DatabaseInterface {
     }
 
     public void saveUser(User user) {
-        getUserByUsername(user.getUsername()).ifPresent(users::remove);
+        getUserById(user.getId()).ifPresent(users::remove);
         users.add(user);
     }
 
