@@ -13,7 +13,6 @@ public class DatabaseTest {
     public static void main(String[] args) {
         DatabaseInterface databaseInterface = new DatabaseInterface();
         databaseInterface.connect();
-//        databaseInterface.getAllUsers().forEach(databaseInterface::removeUser); // this removes every user
 //        System.exit(0);
 
         User user = new User();
@@ -30,5 +29,7 @@ public class DatabaseTest {
         user.setClasses(classes);
         databaseInterface.saveUser(user); // nothing is saved if you don't save the user
         databaseInterface.getAllUsers().forEach(System.out::println);
+
+      databaseInterface.getAllUsers().forEach(databaseInterface::removeUser); // this removes every user
     }
 }

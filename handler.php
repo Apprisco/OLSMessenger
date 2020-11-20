@@ -29,7 +29,7 @@
 
 
 <?php 
-
+include "variables.php";
 if (!(isset($_POST['schedule']) and isset($_POST['name']) and isset($_POST['password'])))
 {
     echo "<h2>Forbidden</h2>";
@@ -55,60 +55,36 @@ else if (strlen($_POST['schedule']) > 0 and strlen($_POST['name']) > 0 and strle
             $peaclasses[$format] = substr($peaclasses[$format], 10);
         }
     }
+    $tmp1=$_POST['email'];
+    $tmp2=$_POST['name'];
+    $classes="";
+    $classes = $classes . "$peaclasses[A]!";
+    $classes = $classes . "$peaclasses[B]!";
+    $classes = $classes . "$peaclasses[C]!";
+    $classes = $classes . "$peaclasses[D]!";
+    $classes = $classes . "$peaclasses[E]!";
+    $classes = $classes . "$peaclasses[F]!";
+    $classes = $classes . "$peaclasses[G]!";
+    $classes = $classes . "$peaclasses[H]";
 
-    // Connect to database server
-	$link = mysqli_connect("localhost", "root", "") or die (mysqli_error($link));
-
-	// Select database
-	mysqli_select_db($link, "olsmessenger") or die(mysqli_error($link));
-
-	// The SQL statement is built
-
-	$strSQL = "INSERT INTO users(";
-
-	$strSQL = $strSQL . "email, ";
-	$strSQL = $strSQL . "name, ";
-    $strSQL = $strSQL . "password, ";
-    $strSQL = $strSQL . "A, ";
-    $strSQL = $strSQL . "B, ";
-    $strSQL = $strSQL . "C, ";
-    $strSQL = $strSQL . "D, ";
-    $strSQL = $strSQL . "E, ";
-    $strSQL = $strSQL . "F, ";
-    $strSQL = $strSQL . "G, ";
-	$strSQL = $strSQL . "H) ";
-
-	$strSQL = $strSQL . "VALUES(";
-
-    $tmp1 = $_POST['email'];
-    $tmp2 = $_POST['name'];
-    $tmp3 = $_POST['password'];
-
-    $strSQL = $strSQL . "'$tmp1', ";
-    $strSQL = $strSQL . "'$tmp2', ";
-    $strSQL = $strSQL . "'$tmp3', ";
-    $strSQL = $strSQL . "'$peaclasses[A]', ";
-    $strSQL = $strSQL . "'$peaclasses[B]', ";
-    $strSQL = $strSQL . "'$peaclasses[C]', ";
-    $strSQL = $strSQL . "'$peaclasses[D]', ";
-    $strSQL = $strSQL . "'$peaclasses[E]', ";
-    $strSQL = $strSQL . "'$peaclasses[F]', ";
-    $strSQL = $strSQL . "'$peaclasses[G]', ";
-    $strSQL = $strSQL . "'$peaclasses[H]')";
-
-    // The SQL statement is executed 
-	mysqli_query($link, $strSQL) or die (mysqli_error($link));
-
-	// Close the database connection
-    mysqli_close($link);
-    
+    $data = array('key'=>$key,'name'=>$_POST['name'],'email'=>$_POST['email'],'classes'=>$classes,'password'=>$_POST['password']);
+    $options = array(
+        'http' => array(
+            'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+            'method'  => 'POST',
+            'content' => http_build_query($data)
+        )
+    );
+    $context  = stream_context_create($options);
+    $result = file_get_contents($spark."/signup", false, $context);
+    if($result=="successful!"){
     echo "<img src='logo.png' alt='exeter logo' id='logo'>";
     echo "<h1 style='text-align: center'>Exeter Messenger</h1>";
     echo "<h4 style='text-align: center; color: grey'>Welcome, $tmp2. You have now joined Exeter Messenger!</h1>";
     echo "
     
-    <div style='text-align:center; padding: 40px;'>    
-        <a href='masterlist.php'>See who is in your classes</a>
+    <div style='text-align:center; padding: 40px;'>
+        <a href='main.html'>Join the main texting room!</a>
     </div>
     
     ";
@@ -119,7 +95,10 @@ else if (strlen($_POST['schedule']) > 0 and strlen($_POST['name']) > 0 and strle
     session_start();
     $_SESSION['email'] = $tmp1; 
     $_SESSION['name'] = $tmp2;
-    $_SESSION['login'] = true;
+    $_SESSION['login'] = true;}
+    else{
+        echo "<h2>Failed to sign up. Duplicate email.</h2>";
+    }
 }
 else
 {

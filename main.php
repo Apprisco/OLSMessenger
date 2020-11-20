@@ -10,6 +10,12 @@
 </head>
 
 <body onload="myFunction(1)">
+<?php
+if ($_SESSION['login'] == false)
+{
+    echo "<h2>Forbidden. Please sign in first.</h2>";
+}
+?>
     <div class="container">
         <div class="row no-gutters">
             <div class="col-md-4">

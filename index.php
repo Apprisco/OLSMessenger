@@ -22,8 +22,10 @@
     <img src="logo.png" alt="exeter logo" id="logo">
 
     <h1 style="text-align: center">Exeter Messenger</h1>
-    <h5 style="text-align: center; color: grey">Sign up to chat, connect and share with the PEA community.</h1>
-    
+    <h5 style="text-align: center; color: grey">Sign up or Log in to chat, connect and share with the PEA community.</h1>
+    <button onclick="document.getElementById('signup').style.display='inline';document.getElementById('login').style.display='none';" class="btn btn-primary">Sign Up</button>
+    <button onclick="document.getElementById('signup').style.display='none';document.getElementById('login').style.display='inline';" class="btn btn-primary">Log In</button>
+    <div style="display:none;" id="signup">
     <form action="handler.php" method="post">
         <p>
         <div class="form-group">
@@ -57,5 +59,20 @@
         <li>Open the '.ics' file in a text editor like Notepad.</li>
         <li>Copy, paste and submit.</li>
     </ol>
+    </div>
+    <div style="display:none;" id="login">
+    <form action="handler2.php" method="post">
+        <p>
+        <div class="form-group">
+            <label for="name">Email</label>
+            <input type="text" class="form-control" id="email" name="email">
+        </div>
+        <div class="form-group">
+            <label for="name">Password.</label>
+            <input type="password" class="form-control" id="password" name="password">
+        </div>
+        <button type="submit" class="btn btn-primary">Log In</button>
+        </p>
+    </form>
 </body>
 </html>
