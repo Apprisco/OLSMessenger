@@ -4,6 +4,7 @@ import static spark.Spark.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import com.olsmessenger.database.tables.User;
 
@@ -20,7 +21,11 @@ public class SparkPost {
 		get("/logout",(req,res)->"hi!");
 		post("/login", (request, response) -> {
 			if(!validate(request.queryParams("key")))return "Failed, wrong auth key.";
-		    return "successful!";
+			String email=request.queryParams("email");
+			String password=request.queryParams("password");
+			String username=email.substring(0,email.indexOf("@"));
+			System.out.println(username+"\n"+password);
+			return verifyUser(username,password);
 		});
 		post("/signup", (request, response) -> {
 			if(!validate(request.queryParams("key")))return "Failed, wrong auth key.";
@@ -30,6 +35,7 @@ public class SparkPost {
 			String password=request.queryParams("password");
 			String c=request.queryParams("classes");
 			//additional query processing
+			if(name.indexOf(' ')==-1)return "fail!";
 			String firstname=name.substring(0,name.indexOf(" "));
 			String lastname=name.substring(name.indexOf(" ")+1);
 			String username=email.substring(0,email.indexOf("@"));
@@ -78,5 +84,16 @@ public class SparkPost {
         databaseInterface.saveUser(user);
         databaseInterface.getAllUsers().forEach(System.out::println);
         return true;
+	}
+	private static String verifyUser(String username,String password)
+	{
+		try {
+		User user=databaseInterface.getUserByUsername(username).get();
+		if(user==null)return "fail!";
+		if(password.equals(user.getPassword()))return user.getFirstName()+" "+user.getLastName();
+		return "fail!";}
+		catch(NoSuchElementException e){
+			return "fail!";
+		}
 	}
 }

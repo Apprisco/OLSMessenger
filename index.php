@@ -34,7 +34,7 @@
         </div>
         <div class="form-group">
             <label for="name">What's your email?</label>
-            <input type="text" class="form-control" id="email" name="email">
+            <input type="email" class="form-control" id="email" name="email">
         </div>
         <div class="form-group">
             <label for="name">Password.</label>
@@ -65,7 +65,7 @@
         <p>
         <div class="form-group">
             <label for="name">Email</label>
-            <input type="text" class="form-control" id="email" name="email">
+            <input type="email" class="form-control" id="email" name="email">
         </div>
         <div class="form-group">
             <label for="name">Password.</label>

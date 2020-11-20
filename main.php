@@ -11,6 +11,7 @@
 
 <body onload="myFunction(1)">
 <?php
+session_start();
 if ($_SESSION['login'] == false)
 {
     echo "<h2>Forbidden. Please sign in first.</h2>";

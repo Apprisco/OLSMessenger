@@ -56,7 +56,7 @@ else if (strlen($_POST['schedule']) > 0 and strlen($_POST['name']) > 0 and strle
         }
     }
     $tmp1=$_POST['email'];
-    $tmp2=$_POST['name'];
+    $tmp2=$_POST['name'];$tmp2=trim($tmp2);$tmp1=trim($tmp1);
     $classes="";
     $classes = $classes . "$peaclasses[A]!";
     $classes = $classes . "$peaclasses[B]!";
@@ -97,12 +97,14 @@ else if (strlen($_POST['schedule']) > 0 and strlen($_POST['name']) > 0 and strle
     $_SESSION['name'] = $tmp2;
     $_SESSION['login'] = true;}
     else{
-        echo "<h2>Failed to sign up. Duplicate email.</h2>";
+        echo "<h2>Failed to sign up. Duplicate email, or check if your name is a full name with a space.</h2>";
+        echo "<a href='index.php'>Click to try again!</a>";
     }
 }
 else
 {
     echo "<h2>Failed to sign up. Please fill in all information.</h2>";
+        echo "<a href='index.php'>Click to try again!</a>";
 }
 
 ?>
