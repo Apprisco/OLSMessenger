@@ -93,21 +93,17 @@ public class SparkPost {
 			return "fail!";
 		}
 	}
-	private static String[] getClassesByUser(String username)
+	private static String getClassesByUser(String username)
 	{
-		String[] fail = new String[1];
-		fail[0]="fail!";
+		String fail;
+		fail="fail!";
 		try {
 			User user=databaseInterface.getUserByUsername(username).get();
 			if(user==null)return fail;
 			List<String> clas=user.getClasses();
-			String[] classes=new String[clas.size()];
-			int i=0;
-			for(String l:clas)
-			{
-				classes[i++]=l;
-			}
-			return classes;
+			int i=0;String z="";
+			for(String l:clas)z=z+l+'!';
+			return z;
 		}
 			catch(NoSuchElementException e){
 				return fail;
