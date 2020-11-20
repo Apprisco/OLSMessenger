@@ -16,6 +16,17 @@ if (!$_SESSION['login']){
     die();
 }
 ?>
+<?php
+  function logout() {
+      session_destroy();
+    header("Location:index.php");
+    die();
+  }
+
+  if (isset($_GET['logout'])) {
+    logout();
+  }
+?>
 <body onload="myFunction(1)">
     <div class="container">
         <div class="row no-gutters">
@@ -30,16 +41,10 @@ if (!$_SESSION['login']){
                         ?>
                     </b>
                     <span class="profile-bar--right float-right">
-                    <button class="btn btn-primary">Log out</button>
+                    <button class="btn btn-primary" style="background-color:#862727!important;"><a style="color:white;" href="/main.php?logout=true">Log out</a></button>
                     </span>
                 </div>
                 <div class="search-bar">
-                    <div class="input-wrapper">
-                        <b>
-                            Search
-                        </b>
-                        <input type="text" placeholder="Search conversations...">
-                    </div>
                     <div class="chat-list">
                         <div class="friend-drawer" onclick="myFunction(1)">
                             <img src="https://media.discordapp.net/attachments/582274693097193472/779031603132235806/atom.png"

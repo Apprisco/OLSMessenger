@@ -10,7 +10,6 @@ body
   height: 40px;
   border-radius: 25px;
 }
-
 .profile-bar
 {
   background: #DCDCDC;
@@ -34,7 +33,7 @@ body
 
 .search-bar
 {
-  padding: 15px 0px;
+  padding: 0px 0px;
   
   i
   {

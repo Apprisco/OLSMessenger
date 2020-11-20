@@ -21,7 +21,7 @@
 <?php 
 include 'variables.php';
 if (!session_id()) session_start();
-if ($_SESSION['login']){ 
+if (isset($_SESSION['login'])){ 
     header("Location:main.php");
     die();
 }
@@ -31,8 +31,8 @@ if ($_SESSION['login']){
 
     <h1 style="text-align: center">Exeter Messenger</h1>
     <h5 style="text-align: center; color: grey">Sign up or Log in to chat, connect and share with the PEA community.</h1>
-    <button onclick="document.getElementById('signup').style.display='inline';document.getElementById('login').style.display='none';" class="btn btn-primary">Sign Up</button>
-    <button onclick="document.getElementById('signup').style.display='none';document.getElementById('login').style.display='inline';" class="btn btn-primary">Log In</button>
+    <button onclick="document.getElementById('signup').style.display='inline';document.getElementById('login').style.display='none';" class="btn btn-primary" style="background-color:#862727!important;">Sign Up</button>
+    <button onclick="document.getElementById('signup').style.display='none';document.getElementById('login').style.display='inline';" class="btn btn-primary" style="background-color:#862727!important;">Log In</button>
     <div style="display:none;" id="signup">
     <form action="handler.php" method="post">
         <p>
@@ -52,7 +52,7 @@ if ($_SESSION['login']){
             <label for="schedule">Please paste your exported OLS schedule here.</label>
             <input type="text" class="form-control" id="schedule" name="schedule">
         </div>
-        <button type="submit" class="btn btn-primary">Sign Up</button>
+        <button type="submit" class="btn btn-primary" style="background-color:#862727!important;">Sign Up</button>
         </p>
     </form>
 
@@ -79,7 +79,7 @@ if ($_SESSION['login']){
             <label for="name">Password.</label>
             <input type="password" class="form-control" id="password" name="password">
         </div>
-        <button type="submit" class="btn btn-primary">Log In</button>
+        <button type="submit" class="btn btn-primary" style="background-color:#862727!important;">Log In</button>
         </p>
     </form>
 </body>

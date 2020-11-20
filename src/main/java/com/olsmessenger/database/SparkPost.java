@@ -18,7 +18,6 @@ public class SparkPost {
 		get("/login",(req,res)->"hi!");
 		get("/chat",(req,res)->"hi!");
 		get("/classes",(req,res)->"hi!");
-		get("/logout",(req,res)->"hi!");
 		post("/login", (request, response) -> {
 			if(!validate(request.queryParams("key")))return "Failed, wrong auth key.";
 			String email=request.queryParams("email");
@@ -50,10 +49,6 @@ public class SparkPost {
 		    return "successful!";
 		});
 		post("/classes", (request, response) -> {
-			if(!validate(request.queryParams("key")))return "Failed, wrong auth key.";
-		    return "successful!";
-		});
-		post("/logout", (request, response) -> {
 			if(!validate(request.queryParams("key")))return "Failed, wrong auth key.";
 		    return "successful!";
 		});
