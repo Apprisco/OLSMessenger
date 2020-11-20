@@ -1,3 +1,4 @@
+
 body
 {
   background-image: url('https://cdn.discordapp.com/attachments/582274693097193472/778987567185395742/Exeter-Academy-Bldg.png')
@@ -64,35 +65,26 @@ input
   background: #862727;
 ;
   border-radius: 5px;
-  margin: 80px auto;
+  margin: 50px auto;
 } 
 
 .friend-drawer 
 {
-  display: flex;
   vertical-align: baseline;
   padding: 20px;
   background: #DCDCDC;
-  transition: .5 ease;
+  transition: .3 ease;
   border-radius: 5px;
   margin-top: 15px;
   transition: .5s;
-    
-  .text
-    {
-      margin-top: 1px;
-    }
-  
-  p1
-    {
-      margin-left: 10px;
-    }
-  
-  &--onhover:hover
-    {
-      background: #FFF;
-      cursor: pointer;
-    }
+}
+
+.friend-drawer:hover {
+  border: 0;
+  background-color: var(--white);
+  width: calc(100% + 2px);
+  padding-left: calc(10% + 1px);
+  cursor: pointer;
 }
 
 hr 
@@ -141,3 +133,39 @@ hr
     font-size: 10px;
 }
 
+.chat-footer{
+  display: inline;
+  overflow: hidden;
+}
+
+.input-group {
+  float: left;
+  width: 85%;
+  padding-bottom: 20px;
+}
+
+.send-btn{
+  float: left;
+  margin-left: 1em;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 3.4em;
+  width: 12%;
+  height: 3.8em;
+  color: black !important;
+  background-color: white;
+  cursor: pointer;
+}
+
+.send-btn:hover {
+  background-color: #c0c0c0;
+}
+
+.chat-column {
+  margin-left: 3.3em;
+}
+
+.text-chat {
+  overflow-y:auto;
+  height: 26em;
+}
