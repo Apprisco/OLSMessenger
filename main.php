@@ -41,7 +41,7 @@ if (!$_SESSION['login']){
     );
     $context  = stream_context_create($options);
     $result = file_get_contents($spark."/classes", false, $context);
-
+    var_dump($result);
 ?>
 <body onload="myFunction(1)">
     <div class="container">
