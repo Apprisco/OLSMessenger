@@ -101,7 +101,7 @@ public class DatabaseInterface {
     }
 
     public void removeClass(Class clas) {
-        classes.remove(clas);
+        classes.removeIf(clas2 -> clas2.getClassName().equals(clas.getClassName()));
     }
 
     public boolean authenticateUser(String username, String password) {

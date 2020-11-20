@@ -77,8 +77,7 @@ public class SparkPost {
         user.setUsername(username);
         user.setClasses(classes);
         databaseInterface.addUser(user); // this is how to add a user
-        user = databaseInterface.getUserById(user.getId()).get();
-        databaseInterface.saveUser(user);
+//        databaseInterface.saveUser(user); We don't need to save it after add if there's no change to it
         databaseInterface.getAllUsers().forEach(System.out::println);
         addWithoutDuplicateClass(classes,user.getId());
         return true;
