@@ -80,7 +80,6 @@ public class SparkPost {
 				int id=j.getSender();
 				retun= retun+((Integer)id).toString()+"|"+((Long)time).toString()+"|"+content+"|";
 			}
-			System.out.println(retun);
 		    return retun;
 		});
 		post("/classes", (request, response) -> {
@@ -93,9 +92,15 @@ public class SparkPost {
 			if(!validate(request.queryParams("key")))return "Failed, wrong auth key.";
 			String email=request.queryParams("email");
 			String id=request.queryParams("id");
+			String[] ID=id.split("\\|");
 			String username=email.substring(0,email.indexOf("@"));
-			int ID=Integer.parseInt(id);
-		    return verifyUser(username,ID);
+			String resp="";try {
+			for(int i=0;i<ID.length;i++)
+			{
+				int fid=Integer.parseInt(ID[i]);
+				resp+=verifyUser(username,fid)+"|";
+			}
+			return resp;}catch(Exception e) {System.out.println(e);return false;}
 		});
 	}
 	private static void initDb()
