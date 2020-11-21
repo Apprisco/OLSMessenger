@@ -71,6 +71,7 @@ public class DatabaseInterface {
     }
 
     private int getAndIncrease() {
+        userIdIndex.trySet(0);
         int index = userIdIndex.get();
         userIdIndex.set(index+1);
         return index;

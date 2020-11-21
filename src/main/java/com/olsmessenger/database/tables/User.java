@@ -19,4 +19,5 @@ public class User implements Serializable {
     private String lastName;
     private String password;
     private List<String> classes = new ArrayList<>();
+
 }
