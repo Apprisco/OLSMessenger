@@ -15,5 +15,4 @@
 	$resultv = file_get_contents($spark."/chatupdate", false, $context);
 }
 else $resultv= "";
-echo $resultv;
 ?>

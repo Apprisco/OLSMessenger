@@ -21,6 +21,7 @@ public class SparkPost {
 		get("/chatupdate",(req,res)->"hi!");
 		get("/chatpull",(req,res)->"hi!");
 		get("/classes",(req,res)->"hi!");
+		get("/verifyID",(req,res)->"hi!");
 		post("/login", (request, response) -> {
 			if(!validate(request.queryParams("key")))return "Failed, wrong auth key.";
 			String email=request.queryParams("email");
@@ -79,6 +80,7 @@ public class SparkPost {
 				int id=j.getSender();
 				retun= retun+((Integer)id).toString()+"|"+((Long)time).toString()+"|"+content+"|";
 			}
+			System.out.println(retun);
 		    return retun;
 		});
 		post("/classes", (request, response) -> {
@@ -86,6 +88,14 @@ public class SparkPost {
 			String email=request.queryParams("email");
 			String username=email.substring(0,email.indexOf("@"));
 		    return getClassesByUser(username);
+		});
+		post("/verifyID", (request, response) -> {
+			if(!validate(request.queryParams("key")))return "Failed, wrong auth key.";
+			String email=request.queryParams("email");
+			String id=request.queryParams("id");
+			String username=email.substring(0,email.indexOf("@"));
+			int ID=Integer.parseInt(id);
+		    return verifyUser(username,ID);
 		});
 	}
 	private static void initDb()
@@ -123,6 +133,16 @@ public class SparkPost {
 		return "fail!";}
 		catch(NoSuchElementException e){
 			return "fail!";
+		}
+	}
+	private static String verifyUser(String username,int id)
+	{
+		try {
+		User user=databaseInterface.getUserById(id).get();
+		if(user==null)return "failnull!";
+		return user.getFirstName()+" "+user.getLastName();}
+		catch(NoSuchElementException e){
+			return "failoops!";
 		}
 	}
 	private static String getClassesByUser(String username)

@@ -58,7 +58,7 @@ if (!$_SESSION['login']){
 ?>
 <script>
 $( document ).ready(function() {
-    $.post("/chathistory.php",{class:'<?php echo $class1;?>'},function(data){alert(data);});
+    if(k==1){$.post("/chathistory.php",{class:'<?php echo $class1;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);});}});}    
 })
 </script>
 <script>
@@ -71,19 +71,44 @@ $(document).on('click', "button.friend-drawer", function() {
     if(k==3)$('p#dad').text("<?php echo $class3;?>");
     if(k==4)$('p#dad').text("<?php echo $class4;?>");
     if(k==5)$('p#dad').text("<?php echo $class5;?>");
-    if(k==1)$.post("/chathistory.php",{class:'<?php echo $class1;?>'},function(data){alert(data);});
-    if(k==2)$.post("/chathistory.php",{class:'<?php echo $class2;?>'},function(data){alert(data);});
-    if(k==3)$.post("/chathistory.php",{class:'<?php echo $class3;?>'},function(data){alert(data);});
-    if(k==4)$.post("/chathistory.php",{class:'<?php echo $class4;?>'},function(data){alert(data);});
-    if(k==5)$.post("/chathistory.php",{class:'<?php echo $class5;?>'},function(data){alert(data);});   
+    if(k==1){$.post("/chathistory.php",{class:'<?php echo $class1;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);});}});}
+    if(k==2){$.post("/chathistory.php",{class:'<?php echo $class2;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);});}});}
+    if(k==3){$.post("/chathistory.php",{class:'<?php echo $class3;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);});}});}
+    if(k==4){$.post("/chathistory.php",{class:'<?php echo $class4;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);});}});}
+    if(k==5){$.post("/chathistory.php",{class:'<?php echo $class5;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);});}});}
 });
 $(document).on('click', ".send-btn", function() {
     var l=$('#send').val();
-    if(k==1)$.post("/sendchat.php",{class:'<?php echo $class1;?>',content:l},function(data){alert(data);});
-    if(k==2)$.post("/sendchat.php",{class:'<?php echo $class2;?>',content:l},function(data){alert(data);});
-    if(k==3)$.post("/sendchat.php",{class:'<?php echo $class3;?>',content:l},function(data){alert(data);});
-    if(k==4)$.post("/sendchat.php",{class:'<?php echo $class4;?>',content:l},function(data){alert(data);});
-    if(k==5)$.post("/sendchat.php",{class:'<?php echo $class5;?>',content:l},function(data){alert(data);});
+    if(k==1)$.post("/sendchat.php",{class:'<?php echo $class1;?>',content:l},function(data){});
+    if(k==2)$.post("/sendchat.php",{class:'<?php echo $class2;?>',content:l},function(data){});
+    if(k==3)$.post("/sendchat.php",{class:'<?php echo $class3;?>',content:l},function(data){});
+    if(k==4)$.post("/sendchat.php",{class:'<?php echo $class4;?>',content:l},function(data){});
+    if(k==5)$.post("/sendchat.php",{class:'<?php echo $class5;?>',content:l},function(data){});
+    if(k==1)
+    {
+    $.post("/chathistory.php",{class:'<?php echo $class1;?>'},function(data){
+        $('.messages').empty();
+        var c=data.split('|');
+        var hi=[];
+        for(i=0;i<c.length-c.length%3;i++)
+        {
+            if(i%3==0)
+            {
+                hi[0]=c[i];
+                hi[1]=c[i+1];
+                hi[2]=c[i+2];
+                i+=2;
+                $.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){
+                    if(dat!="undefined")$('.messages').append(dat);
+                });
+            }
+        }
+    });}
+    if(k==1){$.post("/chathistory.php",{class:'<?php echo $class1;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);});}});}
+    if(k==2){$.post("/chathistory.php",{class:'<?php echo $class2;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);});}});}
+    if(k==3){$.post("/chathistory.php",{class:'<?php echo $class3;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);});}});}
+    if(k==4){$.post("/chathistory.php",{class:'<?php echo $class4;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);});}});}
+    if(k==5){$.post("/chathistory.php",{class:'<?php echo $class5;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);});}});}
     $('#send').val('');
 });</script>
 <body onload="myFunction(1)">
@@ -151,77 +176,7 @@ $(document).on('click', ".send-btn", function() {
                     </b> 
                 </div>
                 <div class="container text-chat" id="11">
-                    <div id="0" class="messages">
-                        <div class="d-flex justify-content-start mb-4">
-                            <div class="profile_picture">
-                                <img src="https://josephchen.tech/wp-content/uploads/2020/08/test1.jpg"
-                                    class="rounded-circle user_pfp">
-                            </div>
-                            <div class="message_received">
-                                Hey, did you get the frontend working?
-                                <span class="time_date">Joseph, 5:42 PM, Today</span>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-end mb-4">
-                            <div class="message_sent">
-                                Bro, what's frontend?
-                                <span class="time_date">Me, 6:55 PM, Today</span>
-                            </div>
-                            <div class="profile_picture">
-                                <img src="https://cdn.discordapp.com/attachments/582274693097193472/778992941900627998/unknown.png"
-                                    class="rounded-circle user_pfp">
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-start mb-4">
-                            <div class="profile_picture">
-                                <img src="https://josephchen.tech/wp-content/uploads/2020/08/test1.jpg"
-                                    class="rounded-circle user_pfp">
-                            </div>
-                            <div class="message_received">
-                                Yo, we only have like one day.
-                                <span class="time_date">Joseph, 7:00 PM, Today</span>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-end mb-4">
-                            <div class="message_sent">
-                                Oof, sounds like a personal problem.
-                                <span class="time_date">Me, 7:06 PM, Today</span>
-                            </div>
-                            <div class="profile_picture">
-                                <img src="https://cdn.discordapp.com/attachments/582274693097193472/778992941900627998/unknown.png"
-                                    class="rounded-circle user_pfp">
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-start mb-4">
-                            <div class="profile_picture">
-                                <img src="https://josephchen.tech/wp-content/uploads/2020/08/test1.jpg"
-                                    class="rounded-circle user_pfp">
-                            </div>
-                            <div class="message_received">
-                                .........................
-                                <span class="time_date">Joseph, 7:42 PM, Today</span>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-start mb-4">
-                            <div class="profile_picture">
-                                <img src="https://josephchen.tech/wp-content/uploads/2020/08/test1.jpg"
-                                    class="rounded-circle user_pfp">
-                            </div>
-                            <div class="message_received">
-                                .........................
-                                <span class="time_date">Joseph, 7:42 PM, Today</span>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-start mb-4">
-                            <div class="profile_picture">
-                                <img src="https://josephchen.tech/wp-content/uploads/2020/08/test1.jpg"
-                                    class="rounded-circle user_pfp">
-                            </div>
-                            <div class="message_received">
-                                PAIN 1.0..............
-                                <span class="time_date">Joseph, 7:42 PM, Today</span>
-                            </div>
-                        </div>
+                    <div id="dood" class="messages">
                     </div>
                 </div>
                 <div class="chat-footer">
