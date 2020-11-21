@@ -30,7 +30,7 @@ if (!$_SESSION['login']){
     $email = $_SESSION['email'];
     $email=trim($email);
     $data = array('key'=>$key,'email'=>$_SESSION['email']);
-    $options = array(
+    $options = array(   
         'http' => array(
             'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
             'method'  => 'POST',
@@ -65,7 +65,6 @@ $('#11').on('scroll', function(){
 <script>
 $( document ).ready(function() {
     $.post("/chathistory.php",{class:'<?php echo $cl[0];?>'},function(data){
-        $('.messages').empty();
         var c=data.split('|');
         var hi=[[],[]],gi=[];
         for(i=0;i<c.length-c.length%3;i+=3)
@@ -73,7 +72,7 @@ $( document ).ready(function() {
                 hi[0][i/3]=c[i];hi[1][i/3]=c[i+1];gi[i/3]=c[i+2];
             }
         $.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:gi},function(dat){
-        if(dat!="undefined")$('.messages').append(dat);
+        if(dat!="undefined")$('.messages').html(dat);
         if(autoScroll)ScrollChat();
         });
     });
@@ -87,7 +86,6 @@ $(document).on('click', "button.friend-drawer", function() {
     k=id.charAt(1)-1;
     $('p#dad').text(z[k]);
     $.post("/chathistory.php",{class:z[k]},function(data){
-        $('.messages').empty();
         var c=data.split('|');
         var hi=[[],[]],gi=[];
         for(i=0;i<c.length-c.length%3;i+=3)
@@ -95,7 +93,7 @@ $(document).on('click', "button.friend-drawer", function() {
                 hi[0][i/3]=c[i];hi[1][i/3]=c[i+1];gi[i/3]=c[i+2];
             }
         $.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:gi},function(dat){
-        if(dat!="undefined")$('.messages').append(dat);
+        if(dat!="undefined")$('.messages').html(dat);
         if(autoScroll)ScrollChat();
         });
     });
@@ -108,7 +106,6 @@ $(document).on('click', ".send-btn", function() {
     {
         $.post("/chathistory.php",{class:z[k]},function(data)
         {
-        $('.messages').empty();
         var c=data.split('|');
         var hi=[[],[]],gi=[];
         for(i=0;i<c.length-c.length%3;i+=3)
@@ -116,7 +113,7 @@ $(document).on('click', ".send-btn", function() {
                 hi[0][i/3]=c[i];hi[1][i/3]=c[i+1];gi[i/3]=c[i+2];
             }
         $.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:gi},function(dat){
-        if(dat!="undefined")$('.messages').append(dat);
+        if(dat!="undefined")$('.messages').html(dat);
         if(autoScroll)ScrollChat();
         });
     });
@@ -129,7 +126,6 @@ setInterval(function()
         
         $.post("/chathistory.php",{class:z[k]},function(data)
         {
-        $('.messages').empty();
         var c=data.split('|');
         var hi=[[],[]],gi=[];
         for(i=0;i<c.length-c.length%3;i+=3)
@@ -137,7 +133,7 @@ setInterval(function()
                 hi[0][i/3]=c[i];hi[1][i/3]=c[i+1];gi[i/3]=c[i+2];
             }
         $.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:gi},function(dat){
-        if(dat!="undefined")$('.messages').append(dat);
+        if(dat!="undefined")$('.messages').html(dat);
         if(autoScroll)ScrollChat();
         });
     });
