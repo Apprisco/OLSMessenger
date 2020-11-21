@@ -122,7 +122,27 @@ $(document).on('click', ".send-btn", function() {
     });
 });
     $('#send').val('');
-}});</script>
+}});
+
+setInterval(function()
+    {
+        
+        $.post("/chathistory.php",{class:z[k]},function(data)
+        {
+        $('.messages').empty();
+        var c=data.split('|');
+        var hi=[[],[]],gi=[];
+        for(i=0;i<c.length-c.length%3;i+=3)
+            if(i%3==0){
+                hi[0][i/3]=c[i];hi[1][i/3]=c[i+1];gi[i/3]=c[i+2];
+            }
+        $.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:gi},function(dat){
+        if(dat!="undefined")$('.messages').append(dat);
+        if(autoScroll)ScrollChat();
+        });
+    });
+    },10000);
+</script>
 <body onload="">
     <div class="container">
         <div class="row no-gutters">
