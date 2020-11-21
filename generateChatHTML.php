@@ -28,6 +28,6 @@
 		    else
 		        $chat=$chat."<div class='d-flex justify-content-start mb-4'><div class='profile_picture'><img src='https://josephchen.tech/wp-content/uploads/2020/08/test1.jpg'class='rounded-circle user_pfp'></div><div class='hid'><div class='message_received'>".$contentx."</div><div class='time_date'>".substr($resultv,0,strrpos($resultv,' ')).", ".$timex."</div></div></div>";
 	    }
-}
 echo $chat;
+}
 ?>
