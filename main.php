@@ -67,12 +67,12 @@ $( document ).ready(function() {
     $.post("/chathistory.php",{class:'<?php echo $cl[0];?>'},function(data){
         $('.messages').empty();
         var c=data.split('|');
-        var hi=[[],[],[]];
+        var hi=[[],[]],gi=[];
         for(i=0;i<c.length-c.length%3;i+=3)
             if(i%3==0){
-                hi[0][i/3]=c[i];hi[1][i/3]=c[i+1];hi[2]=c[i/3];
+                hi[0][i/3]=c[i];hi[1][i/3]=c[i+1];gi[i/3]=c[i+2];
             }
-        $.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){
+        $.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:gi},function(dat){
         if(dat!="undefined")$('.messages').append(dat);
         if(autoScroll)ScrollChat();
         });
@@ -89,12 +89,12 @@ $(document).on('click', "button.friend-drawer", function() {
     $.post("/chathistory.php",{class:z[k]},function(data){
         $('.messages').empty();
         var c=data.split('|');
-        var hi=[[],[],[]];
+        var hi=[[],[]],gi=[];
         for(i=0;i<c.length-c.length%3;i+=3)
             if(i%3==0){
-                hi[0][i/3]=c[i];hi[1][i/3]=c[i+1];hi[2]=c[i/3];
+                hi[0][i/3]=c[i];hi[1][i/3]=c[i+1];gi[i/3]=c[i+2];
             }
-        $.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){
+        $.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:gi},function(dat){
         if(dat!="undefined")$('.messages').append(dat);
         if(autoScroll)ScrollChat();
         });
@@ -108,19 +108,19 @@ $(document).on('click', ".send-btn", function() {
     {
         $.post("/chathistory.php",{class:z[k]},function(data)
         {
-            $('.messages').empty();
-            var c=data.split('|');
-            var hi=[[],[],[]];
-            for(i=0;i<c.length-c.length%3;i+=3)
-                if(i%3==0){
-                    hi[0][i/3]=c[i];hi[1][i/3]=c[i+1];hi[2]=c[i/3];
-                }
-            $.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){
-                if(dat!="undefined")$('.messages').append(dat);
-                if(autoScroll)ScrollChat();
-                });
+        $('.messages').empty();
+        var c=data.split('|');
+        var hi=[[],[]],gi=[];
+        for(i=0;i<c.length-c.length%3;i+=3)
+            if(i%3==0){
+                hi[0][i/3]=c[i];hi[1][i/3]=c[i+1];gi[i/3]=c[i+2];
+            }
+        $.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:gi},function(dat){
+        if(dat!="undefined")$('.messages').append(dat);
+        if(autoScroll)ScrollChat();
         });
     });
+});
     $('#send').val('');
 }});</script>
 <body onload="">
