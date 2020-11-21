@@ -62,7 +62,8 @@ input
 
 .container 
 {
-  background: #862727;
+  background:radial-gradient(circle at center,rgba(134, 39, 39,0.6),rgba(134, 39, 39,0.3),rgba(134, 39, 39,1));
+  
 ;
   border-radius: 5px;
   margin: 50px auto;
@@ -172,6 +173,7 @@ hr
 }
 
 .text-chat {
+    padding-top:20px;
   overflow-y:auto;
   height: 26em;
 }
