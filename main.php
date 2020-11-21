@@ -42,18 +42,12 @@ if (!$_SESSION['login']){
     );
     $context  = stream_context_create($options);
     $result = file_get_contents($spark."/classes", false, $context);
-    list($class1,$class2,$class3,$class4,$class5)=explode("!",$result);
-    $class1s=$class1;
-    $class2s=$class2;
-    $class3s=$class3;
-    $class4s=$class4;
-    $class5s=$class5;
-    $current=$class1;
-    if(strlen($class1)>=30)$class1s=substr($class1,0,27);$class1s=$class1s."...";
-    if(strlen($class2)>=30)$class2s=substr($class2,0,27);$class2s=$class2s."...";
-    if(strlen($class3)>=30)$class3s=substr($class3,0,27);$class3s=$class3s."...";
-    if(strlen($class4)>=30)$class4s=substr($class4,0,27);$class4s=$class4s."...";
-    if(strlen($class5)>=30)$class5s=substr($class5,0,27);$class5s=$class5s."...";
+    $cl=explode("!",$result);
+    $classs=$cl;
+    $current=$cl[0];
+    for($x=0;$x<5;$x++){
+         if(strlen($classs[$x])>=30)$classs[$x]=substr($classs[$x],0,27)."...";
+    }
 
 ?>
 <script>
@@ -78,46 +72,35 @@ $('#11').on('scroll', function(){
 </script>
 <script>
 $( document ).ready(function() {
-    var $f=$('#dood');
-    if(k==1){$.post("/chathistory.php",{class:'<?php echo $class1;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){
+    $.post("/chathistory.php",{class:'<?php echo $cl[0];?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){
         if(dat!="undefined")$('.messages').append(dat);
-         if(autoScroll){ ScrollChat();
-             
-         }
-    });}});}    
+         if(autoScroll)ScrollChat();
+    });}});
 })
 </script>
 <script>
 var k=1;
+var z=<?php echo json_encode($cl); ?>;
 $(document).on('click', "button.friend-drawer", function() {
     var id = $(this).attr('id'); // $(this) refers to button that was clicked
-    k=id.charAt(1);
-    if(k==1)$('p#dad').text("<?php echo $class1;?>");
-    if(k==2)$('p#dad').text("<?php echo $class2;?>");
-    if(k==3)$('p#dad').text("<?php echo $class3;?>");
-    if(k==4)$('p#dad').text("<?php echo $class4;?>");
-    if(k==5)$('p#dad').text("<?php echo $class5;?>");
-    if(k==1){$.post("/chathistory.php",{class:'<?php echo $class1;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);});}});}
-    if(k==2){$.post("/chathistory.php",{class:'<?php echo $class2;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);});}});}
-    if(k==3){$.post("/chathistory.php",{class:'<?php echo $class3;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);});}});}
-    if(k==4){$.post("/chathistory.php",{class:'<?php echo $class4;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);});}});}
-    if(k==5){$.post("/chathistory.php",{class:'<?php echo $class5;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);});}});}
+    k=id.charAt(1)-1;
+    $('p#dad').text(z[k]);
+    $.post("/chathistory.php",{class:z[k]},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);
+         if(autoScroll)ScrollChat();});}});
 });
 $(document).on('click', ".send-btn", function() {
     var l=$('#send').val();
-    if(k==1)$.post("/sendchat.php",{class:'<?php echo $class1;?>',content:l},function(data){});
-    if(k==2)$.post("/sendchat.php",{class:'<?php echo $class2;?>',content:l},function(data){});
-    if(k==3)$.post("/sendchat.php",{class:'<?php echo $class3;?>',content:l},function(data){});
-    if(k==4)$.post("/sendchat.php",{class:'<?php echo $class4;?>',content:l},function(data){});
-    if(k==5)$.post("/sendchat.php",{class:'<?php echo $class5;?>',content:l},function(data){});
-    if(k==1){$.post("/chathistory.php",{class:'<?php echo $class1;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);});}});}
-    if(k==2){$.post("/chathistory.php",{class:'<?php echo $class2;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);});}});}
-    if(k==3){$.post("/chathistory.php",{class:'<?php echo $class3;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);});}});}
-    if(k==4){$.post("/chathistory.php",{class:'<?php echo $class4;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);});}});}
-    if(k==5){$.post("/chathistory.php",{class:'<?php echo $class5;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);});}});}
+    if(l.length!=0){
+        alert(k);
+    $.post("/sendchat.php",{class:z[k],content:l},function(data){
+    $.post("/chathistory.php",{class:z[k]},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);
+         if(autoScroll)ScrollChat();});}});
+        
+    });
     $('#send').val('');
+    }
 });</script>
-<body onload="scrollDown()">
+<body onload="">
     <div class="container">
         <div class="row no-gutters">
             <div class="col-md-4">
@@ -140,35 +123,35 @@ $(document).on('click', ".send-btn", function() {
                             <img src="https://media.discordapp.net/attachments/582274693097193472/779031603132235806/atom.png"
                                 alt="friend profile picture" class=profile-picture>
                             <p1>
-                                <?php echo $class1s;?><br>
+                                <?php echo $classs[0];?><br>
                                 </p1>
                         </button>
                         <button class="friend-drawer"id="b2">
                             <img src="https://cdn.discordapp.com/attachments/582274693097193472/779023684911628288/apollo.png"
                                 alt="friend profile picture" class=profile-picture>
                             <p1>
-                                <?php echo $class2s;?>
+                                <?php echo $classs[1];?>
                             </p1>
                         </button>
                         <button class="friend-drawer"id="b3">
                             <img src="https://cdn.discordapp.com/attachments/582274693097193472/779031661714341978/shapes.png"
                                 alt="friend profile picture" class=profile-picture>
                             <p1>
-                                <?php echo $class3s;?>
+                                <?php echo $classs[2];?>
                             </p1>
                         </button>
                         <button class="friend-drawer"id="b4">
                             <img src="https://cdn.discordapp.com/attachments/582274693097193472/779033530080297000/yoga.png"
                                 alt="friend profile picture" class=profile-picture>
                             <p1>
-                                <?php echo $class4s;?>
+                                <?php echo $classs[3];?>
                             </p1>
                         </button>
                         <button class="friend-drawer"id="b5">
                             <img src="https://cdn.discordapp.com/attachments/582274693097193472/779033530080297000/yoga.png"
                                 alt="friend profile picture" class=profile-picture>
                             <p1>
-                                <?php echo $class5s;?>
+                                <?php echo $classs[4];?>
                             </p1>
                         </button>
                     </div>
@@ -186,16 +169,14 @@ $(document).on('click', ".send-btn", function() {
                     </div>
                 </div>
                 <div class="chat-footer">
-                    <form class="input-group" onclick="return false;">
+                    <div class="input-group" onclick="return false;">
                         <textarea name="send" id="send" class="form-control type_msg" placeholder="Type your message..."></textarea>
-                        <input type=submit class="send-btn">
+                        <div class="send-btn">Send</div>
                         
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-        
 </body>
-
 </html>
