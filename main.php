@@ -133,8 +133,9 @@ setInterval(function()
                 hi[0][i/3]=c[i];hi[1][i/3]=c[i+1];gi[i/3]=c[i+2];
             }
         $.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:gi},function(dat){
+            var z=$('.messages').html();
         if(dat!="undefined")$('.messages').html(dat);
-        if(autoScroll)ScrollChat();
+        if(autoScroll&&!(z===$('.messages').html()))ScrollChat();
         });
     });
     },2000);
