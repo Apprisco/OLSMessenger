@@ -94,13 +94,7 @@ public class SparkPost {
 			String id=request.queryParams("id");
 			String[] ID=id.split("\\|");
 			String username=email.substring(0,email.indexOf("@"));
-			String resp="";try {
-			for(int i=0;i<ID.length;i++)
-			{
-				int fid=Integer.parseInt(ID[i]);
-				resp+=verifyUser(username,fid)+"|";
-			}
-			return resp;}catch(Exception e) {System.out.println(e);return false;}
+			return verifyUser(username,ID);
 		});
 	}
 	private static void initDb()
@@ -140,12 +134,18 @@ public class SparkPost {
 			return "fail!";
 		}
 	}
-	private static String verifyUser(String username,int id)
+	private static String verifyUser(String username,String[] id)
 	{
 		try {
-		User user=databaseInterface.getUserById(id).get();
+		User user=databaseInterface.getUserByUsername(username).get();
 		if(user==null)return "failnull!";
-		return user.getFirstName()+" "+user.getLastName();}
+		String resp="";
+		for(String i:id)
+		{
+			user=databaseInterface.getUserById(Integer.parseInt(i)).get();
+			resp+=user.getFirstName()+" "+user.getLastName()+"|";
+		}
+		return resp;}
 		catch(NoSuchElementException e){
 			return "failoops!";
 		}
