@@ -91,7 +91,6 @@ $(document).on('click', "button.friend-drawer", function() {
 $(document).on('click', ".send-btn", function() {
     var l=$('#send').val();
     if(l.length!=0){
-        alert(k);
     $.post("/sendchat.php",{class:z[k],content:l},function(data){
     $.post("/chathistory.php",{class:z[k]},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);
          if(autoScroll)ScrollChat();});}});
