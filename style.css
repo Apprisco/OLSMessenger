@@ -1,8 +1,12 @@
-
+html{
+    
+}
 body {
-    background-image: url(https://cdn.discordapp.com/attachments/582274693097193472/778987567185395742/Exeter-Academy-Bldg.png);
+    background-image: 
+    url(https://cdn.discordapp.com/attachments/582274693097193472/778987567185395742/Exeter-Academy-Bldg.png);
     background-repeat: no-repeat;
     background-size: cover;
+    height:100%;
 }
 
 .profile-picture
@@ -10,13 +14,11 @@ body {
   width: 40px;
   height: 40px;
   border-radius: 25px;
-}
-.profile-bar
-{
-  background: #DCDCDC;
-  border-radius: 5px;
-  padding: 7px 15px;
-  
+}.profile-bar {
+    background: #DCDCDC;
+    border-radius: 5px;
+    padding: 8px;
+    text-align: center;
   i
   {
     margin-top: 9px;
@@ -67,6 +69,8 @@ input
 ;
   border-radius: 5px;
   margin: 50px auto;
+  padding-left:50px;
+  height:100%;
 } 
 
 .friend-drawer 
@@ -148,9 +152,14 @@ hr
 .input-group {
   float: left;
   width: 85%;
-  padding-bottom: 20px;
+  padding-bottom: 40px;
 }
-
+p#dad {
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: center;
+    padding: 8px;
+}
 .send-btn{
   float: left;
   margin-left: 1em;
@@ -175,14 +184,14 @@ hr
 .text-chat {
     padding-top:20px;
   overflow-y:auto;
-  height: 26em;
+  height: 35em;
 }
 
 .chat-list {
   padding: 15px 0px;
   i
   {
-    color: #DCDCDC;
+    color: #c0c0c0;
     vertical-align: middle;
   }
 }
@@ -190,5 +199,5 @@ hr
 .chat-list {
   margin-top: 30px;
   overflow-y: auto;
-  height: 32em;
+  height: 35em;
 }
