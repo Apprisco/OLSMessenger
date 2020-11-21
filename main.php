@@ -19,14 +19,11 @@ if (!$_SESSION['login']){
 ?>
 <?php
   function logout() {
-      session_destroy();
+    session_destroy();
     header("Location:index.php");
     die();
   }
-
-  if (isset($_GET['logout'])) {
-    logout();
-  }
+  if (isset($_GET['logout']))logout();
 ?>
 <?php
     include 'variables.php';
@@ -45,21 +42,16 @@ if (!$_SESSION['login']){
     $cl=explode("!",$result);
     $classs=$cl;
     $current=$cl[0];
-    for($x=0;$x<5;$x++){
-         if(strlen($classs[$x])>=30)$classs[$x]=substr($classs[$x],0,27)."...";
-    }
-
+    for($x=0;$x<5;$x++)
+         if(strlen($classs[$x])>=30)
+         $classs[$x]=substr($classs[$x],0,27)."...";
 ?>
 <script>
     var autoScroll = true;
-
 function ScrollChat(){
     $('#11').scrollTop($('#11')[0].scrollHeight).trigger('scroll');
 }
-
-
 ScrollChat();
-
 $('#11').on('scroll', function(){
     if($(this).scrollTop() < this.scrollHeight - $(this).height()){
         autoScroll = false;
@@ -72,33 +64,65 @@ $('#11').on('scroll', function(){
 </script>
 <script>
 $( document ).ready(function() {
-    $.post("/chathistory.php",{class:'<?php echo $cl[0];?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){
+    $.post("/chathistory.php",{class:'<?php echo $cl[0];?>'},function(data){
+        $('.messages').empty();
+        var c=data.split('|');
+        var hi=[[],[],[]];
+        for(i=0;i<c.length-c.length%3;i+=3)
+            if(i%3==0){
+                hi[0][i/3]=c[i];hi[1][i/3]=c[i+1];hi[2]=c[i/3];
+            }
+        $.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){
         if(dat!="undefined")$('.messages').append(dat);
-         if(autoScroll)ScrollChat();
-    });}});
-})
+        if(autoScroll)ScrollChat();
+        });
+    });
+});
 </script>
 <script>
 var k=1;
 var z=<?php echo json_encode($cl); ?>;
 $(document).on('click', "button.friend-drawer", function() {
-    var id = $(this).attr('id'); // $(this) refers to button that was clicked
+    var id = $(this).attr('id');
     k=id.charAt(1)-1;
     $('p#dad').text(z[k]);
-    $.post("/chathistory.php",{class:z[k]},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);
-         if(autoScroll)ScrollChat();});}});
+    $.post("/chathistory.php",{class:z[k]},function(data){
+        $('.messages').empty();
+        var c=data.split('|');
+        var hi=[[],[],[]];
+        for(i=0;i<c.length-c.length%3;i+=3)
+            if(i%3==0){
+                hi[0][i/3]=c[i];hi[1][i/3]=c[i+1];hi[2]=c[i/3];
+            }
+        $.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){
+        if(dat!="undefined")$('.messages').append(dat);
+        if(autoScroll)ScrollChat();
+        });
+    });
 });
 $(document).on('click', ".send-btn", function() {
     var l=$('#send').val();
-    if(l.length!=0){
-    $.post("/sendchat.php",{class:z[k],content:l},function(data){
-    $.post("/chathistory.php",{class:z[k]},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);
-         if(autoScroll)ScrollChat();});}});
-        
+    if(l.length!=0)
+    {
+    $.post("/sendchat.php",{class:z[k],content:l},function(data)
+    {
+        $.post("/chathistory.php",{class:z[k]},function(data)
+        {
+            $('.messages').empty();
+            var c=data.split('|');
+            var hi=[[],[],[]];
+            for(i=0;i<c.length-c.length%3;i+=3)
+                if(i%3==0){
+                    hi[0][i/3]=c[i];hi[1][i/3]=c[i+1];hi[2]=c[i/3];
+                }
+            $.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){
+                if(dat!="undefined")$('.messages').append(dat);
+                if(autoScroll)ScrollChat();
+                });
+        });
     });
     $('#send').val('');
-    }
-});</script>
+}});</script>
 <body onload="">
     <div class="container">
         <div class="row no-gutters">
@@ -177,5 +201,7 @@ $(document).on('click', ".send-btn", function() {
             </div>
         </div>
     </div>
+        
 </body>
+
 </html>
