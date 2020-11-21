@@ -137,7 +137,7 @@ setInterval(function()
         if(autoScroll)ScrollChat();
         });
     });
-    },10000);
+    },2000);
 </script>
 <body onload="">
     <div class="container">
