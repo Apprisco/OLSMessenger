@@ -16,5 +16,8 @@ public class DatabaseTest {
         databaseInterface.getAllUsers().forEach(databaseInterface::removeUser); // this removes every user
         databaseInterface.getAllClasses().forEach(databaseInterface::removeClass); // this removes every user
         System.out.println("Komplit");
+        databaseInterface.getAllUsers().forEach(System.out::println);
+        databaseInterface.getAllClasses().forEach(System.out::println);
+        System.out.println("Komplit2");
     }
 }

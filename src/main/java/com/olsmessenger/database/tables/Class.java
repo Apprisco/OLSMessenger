@@ -16,8 +16,9 @@ public class Class implements Serializable {
     private String className;
     private List<Integer> userIds = new ArrayList<>(); // user in the class
     private List<ChatLine> chatHistory = new ArrayList<>();
+
     @Data
-    public static class ChatLine {
+    public static class ChatLine implements Serializable {
 
         private long timestamp;
         private int sender;
