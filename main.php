@@ -57,8 +57,34 @@ if (!$_SESSION['login']){
 
 ?>
 <script>
+    var autoScroll = true;
+
+function ScrollChat(){
+    $('#11').scrollTop($('#11')[0].scrollHeight).trigger('scroll');
+}
+
+
+ScrollChat();
+
+$('#11').on('scroll', function(){
+    if($(this).scrollTop() < this.scrollHeight - $(this).height()){
+        autoScroll = false;
+    }
+    else{
+        autoScroll = true;
+    }
+});
+    
+</script>
+<script>
 $( document ).ready(function() {
-    if(k==1){$.post("/chathistory.php",{class:'<?php echo $class1;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);});}});}    
+    var $f=$('#dood');
+    if(k==1){$.post("/chathistory.php",{class:'<?php echo $class1;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){
+        if(dat!="undefined")$('.messages').append(dat);
+         if(autoScroll){ ScrollChat();
+             
+         }
+    });}});}    
 })
 </script>
 <script>
@@ -84,26 +110,6 @@ $(document).on('click', ".send-btn", function() {
     if(k==3)$.post("/sendchat.php",{class:'<?php echo $class3;?>',content:l},function(data){});
     if(k==4)$.post("/sendchat.php",{class:'<?php echo $class4;?>',content:l},function(data){});
     if(k==5)$.post("/sendchat.php",{class:'<?php echo $class5;?>',content:l},function(data){});
-    if(k==1)
-    {
-    $.post("/chathistory.php",{class:'<?php echo $class1;?>'},function(data){
-        $('.messages').empty();
-        var c=data.split('|');
-        var hi=[];
-        for(i=0;i<c.length-c.length%3;i++)
-        {
-            if(i%3==0)
-            {
-                hi[0]=c[i];
-                hi[1]=c[i+1];
-                hi[2]=c[i+2];
-                i+=2;
-                $.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){
-                    if(dat!="undefined")$('.messages').append(dat);
-                });
-            }
-        }
-    });}
     if(k==1){$.post("/chathistory.php",{class:'<?php echo $class1;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);});}});}
     if(k==2){$.post("/chathistory.php",{class:'<?php echo $class2;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);});}});}
     if(k==3){$.post("/chathistory.php",{class:'<?php echo $class3;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);});}});}
@@ -111,15 +117,15 @@ $(document).on('click', ".send-btn", function() {
     if(k==5){$.post("/chathistory.php",{class:'<?php echo $class5;?>'},function(data){$('.messages').empty();var c=data.split('|');var hi=[];for(i=0;i<c.length-c.length%3;i++)if(i%3==0){hi[0]=c[i];hi[1]=c[i+1];hi[2]=c[i+2];i+=2;$.post("/generateChatHTML.php",{userid:hi[0],time:hi[1],content:hi[2]},function(dat){if(dat!="undefined")$('.messages').append(dat);});}});}
     $('#send').val('');
 });</script>
-<body onload="myFunction(1)">
+<body onload="scrollDown()">
     <div class="container">
         <div class="row no-gutters">
             <div class="col-md-4">
-                <div class="profile-bar" style="margin-top:20px;">
+                <div class="profile-bar" style="margin-top:20px;width:90%">
                     <img class="profile-picture"
                         src="https://cdn.discordapp.com/attachments/582274693097193472/778992941900627998/unknown.png"
                         alt="profile picture">
-                    <b style="color:#808080">
+                    <b style="">
                         <?php 
                         echo $_SESSION['name'];
                         ?>
@@ -171,7 +177,7 @@ $(document).on('click', ".send-btn", function() {
             </div>
             <div class="col-md-7 chat-column">
                 <div class="profile-bar" style="margin-top:20px;text-align:center;">
-                    <b style="color:#808080">
+                    <b style="">
                         <?php echo "<p id='dad'>$current</p>"?>
                     </b> 
                 </div>
@@ -180,10 +186,11 @@ $(document).on('click', ".send-btn", function() {
                     </div>
                 </div>
                 <div class="chat-footer">
-                    <div class="input-group">
+                    <form class="input-group" onclick="return false;">
                         <textarea name="send" id="send" class="form-control type_msg" placeholder="Type your message..."></textarea>
-                    </div>
-                    <div class="send-btn">Send</div>
+                        <input type=submit class="send-btn">
+                        
+                    </form>
                 </div>
             </div>
         </div>
@@ -192,5 +199,3 @@ $(document).on('click', ".send-btn", function() {
 </body>
 
 </html>
-
-<script src="script.js"></script>
