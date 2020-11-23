@@ -63,6 +63,7 @@ $('#11').on('scroll', function(){
     
 </script>
 <script>
+var k=1;
 $( document ).ready(function() {
     $.post("/chathistory.php",{class:'<?php echo $cl[0];?>'},function(data){
         var c=data.split('|');
@@ -76,10 +77,8 @@ $( document ).ready(function() {
         if(autoScroll)ScrollChat();
         });
     });
+    k=0;
 });
-</script>
-<script>
-var k=1;
 var z=<?php echo json_encode($cl); ?>;
 $(document).on('click', "button.friend-drawer", function() {
     var id = $(this).attr('id');
@@ -211,6 +210,16 @@ setInterval(function()
                 <div class="chat-footer">
                     <div class="input-group" onclick="return false;">
                         <textarea name="send" id="send" class="form-control type_msg" placeholder="Type your message..."></textarea>
+                        
+<script>
+    var input = document.getElementById("send");
+input.addEventListener("keyup", function(e) {
+  if (e.keyCode === 13) {
+    e.preventDefault();
+    document.getElementsByClassName("send-btn")[0].click();
+  }
+});
+</script>
                         <div class="send-btn">Send</div>
                         
                     </div>
